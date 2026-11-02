@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Polaroid Diary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ Sign in ============ -->
+<section id="auth">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="eyebrow">Personal journal</span>
+      <h1>Polaroid Diary</h1>
+      <p>Capture a photo, write a few lines, and receive a warm recap at the end of every month.</p>
+      <ul>
+        <li>Your memories stay on this device</li>
+        <li>Passwords are salted and hashed</li>
+        <li>You control your data</li>
+      </ul>
+    </div>
+    <div class="auth-form">
+      <h2>Welcome</h2>
+      <p class="muted">Log in, or create an account to begin.</p>
+      <div class="field"><label for="user">Username</label>
+        <input id="user" placeholder="e.g. anmol" autocomplete="username"></div>
+      <div class="field"><label for="pass">Password</label>
+        <input id="pass" type="password" placeholder="At least 6 characters" autocomplete="current-password"></div>
+      <div class="row"><button id="login">Log in</button><button id="register" class="ghost">Create account</button></div>
+      <p id="msg"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ App ============ -->
+<div id="app" hidden>
+  <header class="site">
+    <div class="wrap bar">
+      <span class="brand">Polaroid Diary</span>
+      <nav>
+        <button id="navWrite" class="tab">Write</button>
+        <button id="navGallery" class="tab">Memories</button>
+      </nav>
+      <div class="acct">
+        <span class="by">Anmol Swar</span>
+        <button id="logout" class="ghost sm">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- PAGE 1: write -->
+    <section id="writePage">
+      <div class="page-head">
+        <div><h2>New memory</h2><p class="muted">Add a photo and a few lines about your day.</p></div>
+      </div>
+      <form id="entry" class="compose">
+        <div class="panel">
+          <h3>1. Photo</h3>
+          <div class="cam">
+            <div class="ph">No photo yet</div>
+            <video id="cam" autoplay playsinline muted hidden></video>
+            <div id="framed" hidden>
+              <figure class="polaroid develop" style="--r:-2deg">
+                <img id="preview" alt="Photo preview">
+                <figcaption><p id="live">Your note appears here…</p><small id="liveDate"></small></figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="row">
+            <button type="button" id="open">Open camera</button>
+            <button type="button" id="snap" hidden>Take photo</button>
+            <button type="button" id="closeCam" class="ghost" hidden>Close camera</button>
+            <label class="btn ghost">Upload photo<input type="file" id="file" accept="image/*" capture="environment" hidden></label>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>2. Note</h3>
+          <textarea id="text" rows="9" placeholder="What made today worth remembering?"></textarea>
+          <div class="row end"><button>Save memory</button></div>
+          <p id="status"></p>
+        </div>
+      </form>
+    </section>
+
+    <!-- PAGE 2: memories -->
+    <section id="galleryPage" hidden>
+      <div class="page-head">
+        <div><h2>Memories</h2><p class="muted">Your month, framed.</p></div>
+        <div class="controls">
+          <input type="month" id="month">
+          <select id="layout">
+            <option value="scrap">Scrapbook frame</option>
+            <option value="strip">Collage frame (5 photos)</option>
+          </select>
+          <button id="recapBtn">Monthly recap</button>
+        </div>
+      </div>
+      <div id="gallery"></div>
+    </section>
+  </main>
+</div>
+
+<dialog id="recap"></dialog>
+<script src="app.js"></script>
+</body>
+</html>
